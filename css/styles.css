@@ -1,0 +1,78 @@
+body{
+    background-color: black;
+	color: green;
+	padding: 10px;
+		font-size: 20px;
+		  	width: 80%;
+	}
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+  
+}
+
+ table, tr{
+   width: 100%;
+   padding: 20px;
+
+ }
+	
+	.td{
+   width: 33%;	
+   height: 100px;
+   padding: 10px
+   background: #2F4C83;
+   border-style: solid;
+	}	
+	
+	
+	img {
+  width: 400px;
+  height: 600px;
+}
+
+
+
+
+	.controls{
+	text-align: right;
+	 padding: 5px;	
+	 font-size: 30px;
+	}
+	
+
+	
+	.Large{
+		 font-size: 30px;
+	}
+	
+	.button1{
+		 font-size: 30px;
+		 color: #2F4C83;
+		 background-color: white;
+		text-decoration: none;
+	}
+	
+	
+	.button2{
+		font-size: 20px;
+		width: 100px;
+	
+	}
+	
+
+
+	.form{
+	margin: auto;
+ 	width: 80%;
+  	padding: 15px;
+  	height: 100%;
+	}
+	
+	.size{
+	cols: 200;
+	font-size: 30px;
+	width= 100px;
+	}
+	
