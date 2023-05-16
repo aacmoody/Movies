@@ -11,7 +11,7 @@
 	
 		<div >
 			<div>
-				<p style="text-align: right; padding: 10px;" ><a href="./AddMovie.php">Add Movie</a> <a href="./AddCastMember.php">Add Cast</a> </p>
+				<p style="text-align: right; padding: 10px;" ><a href="./AddMovie.php">Suggest A Movie</a> <a href="./AddCastMember.php">Suggest An Actor</a> </p>
 			</div>
 		<?php
 		
@@ -23,15 +23,18 @@
 
 			$movieQuery = "SELECT * FROM MOVIE ORDER BY Rand();";
 			$movieInfo = $mysqli->query($movieQuery);
-		
 
-		
-			
-			echo "<table>";
+			echo "<h1>Top Rated</h1>";
+			echo "<div class='carousel'>";			
+			for($x=0; $x<6; $x++){
+			$currentMovie = mysqli_fetch_array($movieInfo);
+			echo "<div class='carousel__item'><a href='./moviePage.php?movie_id=".$currentMovie['Movie_Id']."'>".$currentMovie['Title']."</a></div>";	
+			}
+			echo "</div>";
+
+			echo "<h1>MOVIE SHELF</h1>";
 			echo "<table>";
 			foreach($movieInfo as $movie){
-			
-
 			
 				echo "<tr>";
 				echo "<td><a href='./moviePage.php?movie_id=".$movie['Movie_Id']."'><img src='./moviePosters/".$movie['imgLocation']."'></a></td>";
@@ -44,14 +47,12 @@
 			echo "</table>";
 		
 
-			
-		
-
 		
 		?>
 	
 		</div>
 	</div>
 
+	<script src="main.js"></script>
 </body>
 </html>

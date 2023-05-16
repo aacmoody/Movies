@@ -8,9 +8,11 @@
 .size{
 	cols: 200;
 	font-size: 30px;
-	width= 100px;
+	width= 200px;
 
 	}
+	
+
 
 </style>
 
@@ -20,7 +22,7 @@
 
 	<div class="center"> 
 
-		<h1 class="center">Add Movie</h1>
+		<h1 class="center">Suggest A Movie</h1>
 		<div class="form" style="background: #2F4C83;">
 		
 		
@@ -46,7 +48,7 @@
 					
 				}
 				echo "</select><br>";
-			?>
+			?>	
 				Video Link: <input class="size" name="link"></input><br>
 				Image Link: <input class="size" name="image"></input><br>
 				Description: <textarea class="size" rows="10" cols="30" name="desc"></textarea><br>
@@ -69,7 +71,7 @@
 				$db_name = 'MOVIES';
 				$mysqli = new mysqli($server_name, $user_name, $password, $db_name);
 
-				$movieQuery = "INSERT INTO `MOVIE`( `Title`, `ReleaseDate`, `Description`, `Genre_Id`, `link`, `imgLocation`) VALUES ('".$title."','".$release."','".$description."','".$genre."','".$video."','".$image."');";
+				$movieQuery = "INSERT INTO `SuggestMovie`( `Title`, `ReleaseDate`, `Description`, `Genre_Id`, `link`, `imgLocation`) VALUES ('".$title."','".$release."','".$description."','".$genre."','".$video."','".$image."');";
 				echo $movieQuery;
 				$mysqli->query($movieQuery);
 			
