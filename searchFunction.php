@@ -1,4 +1,6 @@
-function searchMovies(){
+
+<?php
+function searchMovies($genre, $title, $director, $actor){
 
 			$server_name = 'localhost';
 			$user_name = 'root';
@@ -11,7 +13,7 @@ function searchMovies(){
 			$counter = 0;
 			
 
-			if(!str_contains($_GET["genre"], "Select Genre") ){
+			if(!str_contains($genre, "Select Genre") ){
 
 				$genreData = "select m.Movie_Id, m.Title, m.imgLocation FROM MOVIE m, Genre g, MovieGenres mg WHERE m.Movie_Id= mg.MovieId and mg.GenreId=g.Genre_Id and g.Genre='".$_GET['genre']."';";	
 				$genreData = $mysqli->query($genreData);	
@@ -25,7 +27,7 @@ function searchMovies(){
 
 			}
 
-			if(strlen($_GET['movieTitle']) > 0){
+			if(strlen($title) > 0){
 				$titleData = "select m.Movie_Id, m.Title, m.imgLocation from MOVIE m where m.Title like '%".$_GET['movieTitle']."%';";
 				$titleData = $mysqli->query($titleData);
 							
@@ -37,7 +39,7 @@ function searchMovies(){
 				}	
 			}
 			
-			if(strlen($_GET["movieDirector"]) > 0){
+			if(strlen($director) > 0){
 				$directorData = "select m.Movie_Id, m.Title, m.imgLocation FROM MOVIE m, WorksOn w, CASTMEMBERS c where m.Movie_Id=w.Movie_Id and w.Cast_Id=c.Cast_Id and c.CastMemberName='".$_GET['movieDirector']."';";	
 				$directorData = $mysqli->query($directorData);	
 				
@@ -49,7 +51,7 @@ function searchMovies(){
 				}		
 
 			} 
-			if(strlen($_GET["movieActor"]) > 0){
+			if(strlen($actor) > 0){
 				$actorData = "select m.Movie_Id, m.Title, m.imgLocation FROM MOVIE m, WorksOn w, CASTMEMBERS c where m.Movie_Id=w.Movie_Id and w.Cast_Id=c.Cast_Id and c.CastMemberName='".$_GET['movieActor']."';";
 				$actorData = $mysqli->query($actorData);
 				
@@ -63,3 +65,26 @@ function searchMovies(){
 			return $results;
 
 	}
+	
+	
+	
+function selectGenre(){
+
+$movieTitle = $_GET['movieTitle'];
+			
+		$server_name = 'localhost';
+		$user_name = 'root';
+		$password = "";
+		$db_name = 'MOVIES';
+		$mysqli = new mysqli($server_name, $user_name, $password, $db_name);
+		
+		
+		
+		$genreQuery = "SELECT genre FROM `Genre`;";
+		$genreData = $mysqli->query($genreQuery);
+		
+		
+		return $genreData;
+}
+	
+	?>
