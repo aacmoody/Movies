@@ -28,7 +28,9 @@
 			echo "<div class='carousel'>";			
 			for($x=0; $x<6; $x++){
 			$currentMovie = mysqli_fetch_array($movieInfo);
-			echo "<div class='carousel__item'><a href='./moviePage.php?movie_id=".$currentMovie['Movie_Id']."'>".$currentMovie['Title']."</a></div>";	
+			//echo "<div class='carousel__item'><a href='./moviePage.php?movie_id=".$currentMovie['Movie_Id']."'>".$currentMovie['Title']."</a></div>";	
+			echo "<div class='carousel__item'><a href='./moviePage.php?movie_id=".$currentMovie['Movie_Id']."'><img src='./moviePosters/".$currentMovie['imgLocation']."'></a></div>";	
+			
 			}
 			echo "</div>";
 

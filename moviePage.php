@@ -59,10 +59,6 @@
 			echo '<button class="button1"><a href="./comment.php?movie_id='.$movie1['Movie_Id'].'">Write a comment</a></button>';
 		?>	
 
-	
-	
-		
-		
 
 		</div>
 	</div>

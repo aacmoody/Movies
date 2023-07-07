@@ -26,7 +26,11 @@ body{
    border-style: solid;
 	}	
 	
-
+	
+	img {
+  width: 400px;
+  height: 600px;
+}
 
 	.controls{
 	text-align: right;
@@ -69,21 +73,20 @@ body{
 	width= 100px;
 	}
 	
-	
-	
 	.carousel {
   position: relative;
 }
 
 .carousel__item {
   height: 600px;
-  background: grey;
+  background: black;
   padding: 1em;
   font-family: "Quicksand", sans-serif;
   font-weight: bold;
   font-size: 2em;
   color: #ffffff;
   display: none;
+
 }
 
 .carousel__item--selected {
