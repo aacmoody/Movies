@@ -11,7 +11,7 @@
 	
 		<div >
 			<div>
-				<p style="text-align: right; padding: 10px;" ><a href="./AddMovie.php">Suggest A Movie</a> <a href="./AddCastMember.php">Suggest An Actor</a> </p>
+				<p style="text-align: right; padding: 10px;" ><a href="./Suggestion.php">Suggest A Movie</a> </p>
 			</div>
 		<?php
 		
@@ -24,12 +24,12 @@
 			$movieQuery = "SELECT * FROM MOVIE ORDER BY Rand();";
 			$movieInfo = $mysqli->query($movieQuery);
 
-			echo "<h1>Top Rated</h1>";
+			echo "<h1 style='margin: auto; width: 50%; scroll-snap-type: x mandatory;'>Top Rated</h1>";
 			echo "<div class='carousel'>";			
 			for($x=0; $x<6; $x++){
 			$currentMovie = mysqli_fetch_array($movieInfo);
-			//echo "<div class='carousel__item'><a href='./moviePage.php?movie_id=".$currentMovie['Movie_Id']."'>".$currentMovie['Title']."</a></div>";	
-			echo "<div class='carousel__item'><a href='./moviePage.php?movie_id=".$currentMovie['Movie_Id']."'><img src='./moviePosters/".$currentMovie['imgLocation']."'></a></div>";	
+
+			echo "<div style='margin: auto; width: 50%; scroll-snap-align: start;' class='carousel__item'><a href='./moviePage.php?movie_id=".$currentMovie['Movie_Id']."'><img src='./moviePosters/".$currentMovie['imgLocation']."'></a></div>";	
 			
 			}
 			echo "</div>";
@@ -40,7 +40,7 @@
 			
 				echo "<tr>";
 				echo "<td><a href='./moviePage.php?movie_id=".$movie['Movie_Id']."'><img src='./moviePosters/".$movie['imgLocation']."'></a></td>";
-				echo "<td>";
+				echo "<td style='margin auto; width: 60%;'>";
 				echo $movie['Title']."<br><br>Released: ".$movie['ReleaseDate']."<br><br>".$movie['Description'];
 				echo "</td>";
 				echo "</tr>";

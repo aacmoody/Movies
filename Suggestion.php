@@ -2,8 +2,8 @@
 <html>
 <head>
 <title>The Movie Shack</title>
-		<!--<link rel="stylesheet" href="./CSS/styles.css">
-		-->
+		<link rel="stylesheet" href="./CSS/styles.css">
+		
 <style>
 
 .size{
@@ -20,45 +20,89 @@
 </head>
 <body>
 
+  <div class='center' style='  margin: auto; width: 50%; padding: 10px;'>
+  <Form class='center' method='POST'>
 
-	<div>
-	<Form>
 
-	<label for="movieTItle">Movie Title*</label><br>
-  <input type="text" id="movieTItle" name="movieTItle" ><br><br>
+  <?php
+	include ("searchFunction.php");
+	
+  echo '<label for="movieTitle">Movie Title*</label><br>';
+  echo '<input type="text" value="'.$_POST['movieTitle'].'" id="movieTItle" name="movieTitle" size="60" ><br><br>';
 
-  <label for="releaseDate">Release Date</label><br>
-  <input type="text" id="releaseDate" name="releaseDate" ><br><br>
-    <label for="genre">Genre</label><br>
-  <input type="text" id="genre" name="genre" ><br><br>
+  echo ' <label for="releaseDate">Release Date</label><br>';
+  echo ' <input type="text" value="'.$_POST['releaseDate'].'" id="releaseDate" name="releaseDate" size="60"><br><br>';
+
+
+  echo '<label for="genre">Select Genre</label><br> '; 
+  echo "<select style='width:90%;' name='genre' >";
+
+		$genreData = selectGenre();
+		print_r($genreData);
+		$i=1;
+		echo "<option>Select Genre</option>";
+		foreach($genreData as $key => $genre){
+			if($genre['genre']==$_POST['genre']){
+				echo "<option class='space' selected='selected' value='".$genre['genre']."'>".$genre['genre']."</option>";
+			}else {
+				echo "<option value='".$genre['genre']."'>".$genre['genre']."</option>";
+			}
+					$i++;
+		}
+  echo "</select><br><br>";
+
+
   
-  <label for="mpaaRating">MPAA Rating</label><br>
-  <input type="text" id="mpaaRating" name="mpaaRating" ><br><br>
-    <label for="duration">Duration</label><br>
-    
-  <input type="text" id="duration" name="duration" ><br><br>
-  <label for="description">Description</label><br>
-  <input type="text" id="description" name="description" ><br><br>
+  echo "<label for='mpaaRating'>MPAA Rating</label><br>";
+//  echo '<input type="text"  value="'.$_POST['mpaaRating'].'" id="mpaaRating" name="mpaaRating" ><br><br>';
 
-    <label for="videoLink">Video Link</label><br>
-  <input type="text" id="videoLink" name="videoLink" ><br><br>
-  <label for="imageLink">Image Link</label><br>
-  <input type="text" id="imageLink" name="imageLink" ><br><br>
+  echo "<select style='width:90%;' name='mpaaRating'>";
+  echo "<option>Select Rating</option>";
 
-    <label for="director">Director</label><br>
-  <input type="text" id="director" name="director" ><br><br>
-  <label for="actors">Actors</label><br>
-  <input type="text" id="actors" name="actors" ><br><br>
+  $ratings = array("G", "PG", "PG-13", "R", "NC-17");
+  
+	foreach($ratings as $current){
+		if($current==$_POST['mpaaRating']){
+			echo "<option selected='selected' value='".$current."'>".$current."</option>";
+		}else {
+			echo "<option value='".$current."'>".$current."</option>";
+		}
+	}  
+  echo "</select><br><br>";
 
-  <label for="writers">Writers</label><br>
-  <input type="text" id="writers" name="writers" ><br><br>
+  echo '<label for="duration">Duration</label><br>';
+  echo '<input type="text"  value="'.$_POST['duration'].'" id="duration" name="duration" size="60"><br><br>';
+
+  echo '<label for="description">Description</label><br>';
+  echo '<input type="text"  value="'.$_POST['description'].'" id="description" name="description" size="60"><br><br>';
+
+  echo '  <label for="videoLink">Video Link*</label><br>';
+  echo '<input type="text"  value="'.$_POST['videoLink'].'" id="videoLink" name="videoLink" size="60"><br><br>';
+  
+  echo '<label for="imageLink">Image Link</label><br>';
+  echo '<input type="text"  value="'.$_POST['imageLink'].'" id="imageLink" name="imageLink" size="60"><br><br>';
+
+  echo '  <label for="director">Director</label><br>';
+  echo '<input type="text"  value="'.$_POST['director'].'" id="director" name="director" size="60"><br><br>';
+  echo '<label for="actors">Actors</label><br>';
+  echo '<input type="text"  value="'.$_POST['actors'].'" id="actors" name="actors" size="60"><br><br>';
+
+  echo '<label for="writers">Writers</label><br>';
+  echo '<input type="text"  value="'.$_POST['writers'].'" id="writers" name="writers"size="60" ><br><br>';
 
 
-  <input type="submit" value="Submit">
+  echo '<input type="submit" value="Submit">';
+	echo '</Form>';
 
-	</Form>
+	echo "<p class='center'>*Required Fields<br><br>To ensure the best possible accuracy of your submission, please complete as many fields as possible in the form. All submitted movies will be reviewed by Movie Shack's admin team.</p>";
+			
+			if(isset($_POST['submit']))
+			{
+		   		movieSuggestion($_GET['movieTitle'], $_GET['releaseDate'], $_GET['genre'], $_GET['mpaaRating'], $_GET['duration'], $_GET['description'], $_GET['videoLink'], $_GET['imageLink'], $_GET['director'], $_GET['actors'], $_GET['writers'] );
 
-	<p>* Required Fields<br><br>To ensure the best possible accuracy of your submission, please complete as many fields as possible in the form. All submitted movies will be reviewed by Movie Shack's admin team before being added to the database.</p>
+			} 
+?>
+
 
 
 	</div>

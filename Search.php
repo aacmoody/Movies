@@ -11,8 +11,9 @@
 </head>
 <body>
 
-
+		
 		<h1  style='text-align: center;'>Search Results</h1>
+
 		<table style='width:80%; text-align: center; margin: auto;'>
 		<tr>
 		<td style='width:40%;border: 2px solid grey; border-radius: 5px; vertical-align: top;'>
@@ -24,10 +25,9 @@
 	
 	//INPUT FORM
 		
-		
 		echo "<select style='width:90%;' name='genre'>";	
 		$genreData = selectGenre();
-				
+				//print_r($genreData);
 				$i=1;
 				echo "<option>Select Genre</option>";
 				foreach($genreData as $key => $genre){
@@ -57,6 +57,8 @@
 			$testoutput = searchMovies($_GET['genreData'], $_GET['movieTitle'], $_GET['movieDirector'], $_GET['movieActor']);
 		echo "<td style='width:60%'>";
 
+		
+
 			if(count($testoutput)==0){
 
 				
@@ -73,7 +75,7 @@
 					echo "<a href='./moviePage.php?movie_id=".$testoutput[$x]['Movie_Id']."'><img style='height:400px; width=200px;' src='./moviePosters/".$testoutput[$x]['imgLocation']."'></a>";
 					
 					echo "</td>";
-					echo "<td style='border: 2px solid grey;'>";
+					echo "<td '>";
 					echo "".$testoutput[$x]['Title']."<br>";
 					echo "".$testoutput[$x]['link']."<br>";
 
@@ -88,10 +90,6 @@
 		echo "</tr>";
 		echo "</table>";
 
-
-
-//SEARCH
-	
 
 			if(isset($_POST['submit']))
 			{

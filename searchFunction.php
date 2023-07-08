@@ -1,6 +1,7 @@
 
 <?php
 function searchMovies($genre, $title, $director, $actor){
+//TODO check input for SQL INJECTION
 
 			$server_name = 'localhost';
 			$user_name = 'root';
@@ -12,6 +13,18 @@ function searchMovies($genre, $title, $director, $actor){
 			$results = array();
 			$counter = 0;
 			
+			
+			if(strlen($title) > 0){
+				$titleData = "select m.Movie_Id, m.Title, m.imgLocation from MOVIE m where m.Title like '%".$_GET['movieTitle']."%';";
+				$titleData = $mysqli->query($titleData);
+							
+				while ($singleResult = $titleData->fetch_assoc()){
+					if(!in_array($singleResult, $results)){
+					$results[$counter] =  $singleResult;
+					$counter++;
+					}
+				}	
+			}
 
 			if(!str_contains($genre, "Select Genre") ){
 
@@ -27,17 +40,7 @@ function searchMovies($genre, $title, $director, $actor){
 
 			}
 
-			if(strlen($title) > 0){
-				$titleData = "select m.Movie_Id, m.Title, m.imgLocation from MOVIE m where m.Title like '%".$_GET['movieTitle']."%';";
-				$titleData = $mysqli->query($titleData);
-							
-				while ($singleResult = $titleData->fetch_assoc()){
-					if(!in_array($singleResult, $results)){
-					$results[$counter] =  $singleResult;
-					$counter++;
-					}
-				}	
-			}
+
 			
 			if(strlen($director) > 0){
 				$directorData = "select m.Movie_Id, m.Title, m.imgLocation FROM MOVIE m, WorksOn w, CASTMEMBERS c where m.Movie_Id=w.Movie_Id and w.Cast_Id=c.Cast_Id and c.CastMemberName='".$_GET['movieDirector']."';";	
@@ -86,5 +89,12 @@ $movieTitle = $_GET['movieTitle'];
 		
 		return $genreData;
 }
+	
+	
+	
+function movieSuggestion($title, $releaseDate, $genre, $rating, $duration, $description, $videoLink, $imageLink, $directors, $actors, $writers){
+
+}	
+	
 	
 	?>

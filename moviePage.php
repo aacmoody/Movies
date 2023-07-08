@@ -29,8 +29,7 @@
 			$movie1 = $movieInfo->fetch_assoc();
 			$actor_query_string = "SELECT * FROM MOVIE M, CASTMEMBERS C, WORKSON W WHERE M.Movie_Id=W.Movie_Id AND W.Cast_Id=C.Cast_Id AND M.Movie_Id ='".$movieId."';";
 			$actors = $mysqli-> query($actor_query_string);
-			$comments_query_string = "SELECT * FROM COMMENTS WHERE Movie_Id='".$movieId."';";
-			$comments = $mysqli-> query($comments_query_string);
+
 
 			echo "<h1 class='center'>".$movie1['Title']."</h1><br>";						
 			echo '<iframe width="100%" height="500" src="'.$movie1['link'].'"  frameborder="10" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
