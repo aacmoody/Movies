@@ -27,7 +27,6 @@
 		
 		echo "<select style='width:90%;' name='genre'>";	
 		$genreData = selectGenre();
-				//print_r($genreData);
 				$i=1;
 				echo "<option>Select Genre</option>";
 				foreach($genreData as $key => $genre){
@@ -54,10 +53,10 @@
 
 
 	//OUTPUT
-			$testoutput = searchMovies($_GET['genreData'], $_GET['movieTitle'], $_GET['movieDirector'], $_GET['movieActor']);
+			$testoutput = searchMovies($_GET['genre'], $_GET['movieTitle'], $_GET['movieDirector'], $_GET['movieActor']);
 		echo "<td style='width:60%'>";
 
-		
+        echo print_r($testoutput);		
 
 			if(count($testoutput)==0){
 
