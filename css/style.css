@@ -1,0 +1,425 @@
+body {
+  background: #ffffff;
+}
+
+html * {
+  font-family: Helvetica !important;
+}
+
+p {
+  font-family: Helvetica;
+}
+
+.header {
+  font-size: 30px;
+  padding-left: 00px;
+  color: black;
+  width: 100%;
+}
+
+
+#main {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+#leftsplit {
+  width: 25%;
+  float: left;
+}
+
+#rightsplit {
+  width: 75%;
+  float: left;
+}
+
+form {
+  width: 1000px;
+  border: 3px solid rgb(177, 142, 142);
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 20px;
+}
+
+#searchform {
+  width: 200px;
+  border: 3px solid rgb(177, 142, 142);
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.grid-container {
+  display: grid;
+  /-template-columns: 350px 350px 350px;
+  padding: 50px;
+  gap: 50px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  border: 2px solid rgb(177, 142, 142);
+  border-radius: 10px;
+  padding: 0.5rem;
+}
+
+input {
+  display: block;
+  border: 2px solid #ccc;
+  width: 95%;
+  padding: 10px;
+  margin: 5px auto;
+  border-radius: 5px;
+  align-items: center;
+}
+
+label {
+  color: black;
+  font-size: 18px;
+  padding: 2px;
+}
+
+button {
+  float: right;
+  background: black;
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 5px;
+  margin-right: 10px;
+  border: none;
+}
+
+/* button:hover {
+  opacity: 0.1;
+} */
+
+#deletebutton {
+  float: right;
+  background: red;
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 5px;
+  margin-right: 10px;
+  border: none;
+}
+
+#deletebutton:hover {
+  opacity: 0.1;
+}
+
+.error {
+  background: #f2dede;
+  color: #0c0101;
+  padding: 10px;
+  width: 95%;
+  border-radius: 5px;
+  margin: 20px auto;
+}
+
+h2,
+h1,
+h3 {
+  color: black;
+  font-family: Helvetica !important;
+}
+
+a {
+  float: right;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-right: 10px;
+  border: none;
+  text-decoration: none;
+  /*background: green;*/
+  color: green;
+  font: system-ui;
+}
+
+a:link {
+  /*background: green;*/
+  color: green;
+  text-decoration: none;
+  font: system-ui;
+}
+
+a:hover {
+  color: white;
+  background-color: green;
+  /* text-decoration: underline; */
+  opacity: 0.7;
+  font-family: Helvetica !important;
+}
+
+a.headera{
+   /*float: left; */
+   border-radius: 0px;
+}
+
+.marginMainTable {
+  margin-left: 400px;
+  margin-right: 400px;
+}
+
+.marginMainWithBackground {
+  margin-left: 300px;
+  margin-right: 300px;
+  background: #fff1dc;
+  align-items: center;
+  padding: 20px;
+}
+
+.marginMainSearch {
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.inputClear {
+  border: 0px solid transparent;
+}
+
+input.sumbitbutton {
+  display: block;
+  border: 2px solid #ccc;
+  width: 50%;
+  padding: 10px;
+  margin: 5px auto;
+  border-radius: 10px;
+  align-items: center;
+  background: green;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.moviePageCenter {
+  margin-left: 100px;
+  margin-right: 100px;
+  background: #e5e4e2;
+  color: black;
+  align-items: center;
+  padding: 30px;
+}
+
+input.sumbitbutton:hover {
+  color: white;
+  background-color: blue;
+}
+
+.aligncenter {
+  margin-left: 300px;
+  margin-right: 300px;
+}
+
+form.search {
+  margin: auto;
+  width: 30%;
+  padding: 5px 10px 5px 10px;
+  height: 100%;
+  float: right;
+  /* display: block; */
+}
+
+.profile-section {
+  display: flex;
+}
+
+.profile-photo {
+  flex: 1;
+}
+
+.profile-info {
+  flex: 1;
+  padding-left: 20px;
+}
+
+.lists-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lists-section > div {
+  flex: 1;
+  padding-right: 20px;
+}
+
+body {
+  background-color: #f5f5f5;
+  color: black;
+  padding: 10px;
+  font-size: 20px;
+  width: 98%;
+}
+
+.center {
+  margin: auto;
+  width: 80%;
+  padding: 10px;
+}
+
+table,
+tr {
+  width: 100%;
+  padding: 20px;
+}
+
+.td {
+  width: 33%;
+  height: 100px;
+  padding: 10px;
+  background: #2f4c83;
+  border-style: solid;
+}
+
+.logo {
+  width: 200px;
+  height: 120px;
+}
+
+.homeMovie {
+  width: 400px;
+  height: 400px;
+}
+
+.homeCarsolMovie {
+  width: 400px;
+  height: 350px;
+}
+
+hr {
+  border: 1px solid rgb(177, 142, 142);
+}
+
+#logo {
+  width: 200px;
+  height: 120px;
+}
+.controls {
+  text-align: right;
+  padding: 5px;
+  font-size: 30px;
+}
+
+.Large {
+  font-size: 18px;
+}
+
+.button1 {
+  font-size: 30px;
+  color: #2f4c83;
+  /* background-color: white; */
+  text-decoration: none;
+}
+
+.button2 {
+  font-size: 20px;
+  width: 100px;
+}
+
+.form {
+  margin: auto;
+  width: 80%;
+  padding: 15px;
+  height: 100%;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+
+.size {
+  columns: 200;
+  font-size: 30px;
+  width: 100px;
+}
+
+.carousel {
+  position: relative;
+}
+
+.carousel__item {
+  height: 400px;
+  background: black;
+  padding: 1em;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 2em;
+  color: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  float:left;
+}
+
+.carousel__item--selected {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.carousel__nav {
+  width: 100%;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+.carousel__button {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.carousel__button--selected {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.profile-section {
+  display: flex;
+}
+
+.profile-photo {
+  flex: 1;
+}
+
+.profile-info {
+  flex: 1;
+  padding-left: 20px;
+}
+
+.lists-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lists-section > div {
+  flex: 1;
+  padding-right: 20px;
+}
+
+
+
+.sidebar {
+    float: right;
+    width: 300px; 
+    margin-left: 40px; 
+}

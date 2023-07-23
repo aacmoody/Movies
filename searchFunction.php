@@ -1,189 +1,126 @@
 <?php
-function searchMovies($genre, $title, $director, $actor){
-//TODO check input for SQL INJECTION
 
-			$server_name = 'localhost';
-			$user_name = 'root';
-			$password = "";
-			$db_name = 'MOVIES';
-			$mysqli = new mysqli($server_name, $user_name, $password, $db_name);			
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 
-			$results = array();
-			$counter = 0;
-			
-			
-			if(strlen($title) > 0){
-				$titleData = "select m.Movie_Id, m.Title, m.imgLocation from MOVIE m where m.Title like '%".$_GET['movieTitle']."%';";
-				$titleData = $mysqli->query($titleData);
-							
-				while ($singleResult = $titleData->fetch_assoc()){
-					if(!in_array($singleResult, $results)){
-					$results[$counter] =  $singleResult;
-					$counter++;
-					}
-				}	
-			}
+function searchMovies($genre, $title, $director, $actor, $rating)
+{
+$mysqli = getDbConnecion();
 
-			//if(!str_contains($genre, "Select Genre") ){
-			if($genre != "Select Genre"){
-				$genreData = "select m.Movie_Id, m.Title, m.imgLocation FROM MOVIE m, Genre g, MovieGenres mg WHERE m.Movie_Id= mg.MovieId and mg.GenreId=g.Genre_Id and g.Genre='".$_GET['genre']."';";	
-				$genreData = $mysqli->query($genreData);	
-				
-				while ($singleResult = $genreData->fetch_assoc()){
-					if(!in_array($singleResult, $results)){
-						$results[$counter] =  $singleResult;
-						$counter++;
-						}
-				}	
+$titleData = "select m.Movie_Id, m.Title, m.imgLocation, m.ReleaseDate, m.Rating, m.Duration from MOVIE m where m.Title like '%".$title."%'"; 
+$genreData = "select m.Movie_Id, m.Title, m.imgLocation, m.ReleaseDate, m.Rating, m.Duration FROM MOVIE m, Genre g WHERE m.Genre_Id=g.Genre_Id and g.Genre='" . $genre . "'";
+$directorData = "select m.Movie_Id, m.Title, m.imgLocation, m.ReleaseDate, m.Rating, m.Duration FROM MOVIE m, WorksOn w, CASTMEMBERS c where m.Movie_Id=w.Movie_Id and w.Cast_Id=c.Cast_Id and c.Role='Director' and c.CastMemberName='".$director."'";	
+$actorData = "select m.Movie_Id, m.Title, m.imgLocation, m.ReleaseDate, m.Rating, m.Duration FROM MOVIE m, WorksOn w, CASTMEMBERS c where m.Movie_Id=w.Movie_Id and w.Cast_Id=c.Cast_Id and c.Role='Actor' and c.CastMemberName='".$actor."'";
+$ratingData = "select m.Movie_Id, m.Title, m.imgLocation, m.ReleaseDate, m.Rating, m.Duration from MOVIE m where m.Rating = '".$rating."'";
+$intersect = " INTERSECT ";
 
-			}
+$started = false;
+$totalSearch = "";
 
-			
-			if(strlen($director) > 0){
-				$directorData = "select m.Movie_Id, m.Title, m.imgLocation FROM MOVIE m, WorksOn w, CASTMEMBERS c where m.Movie_Id=w.Movie_Id and w.Cast_Id=c.Cast_Id and c.Role='Director' and c.CastMemberName='".$_GET['movieDirector']."';";	
-				$directorData = $mysqli->query($directorData);	
-				
-				while ($singleResult = $directorData->fetch_assoc()){
-					if(!in_array($singleResult, $results)){
-						$results[$counter] =  $singleResult;
-						$counter++;
-					}
-				}		
+if(strlen($title) > 0){
+	$totalSearch = $titleData;
+	$started = true; 
+}
 
-			} 
-			if(strlen($actor) > 0){
-				$actorData = "select m.Movie_Id, m.Title, m.imgLocation FROM MOVIE m, WorksOn w, CASTMEMBERS c where m.Movie_Id=w.Movie_Id and w.Cast_Id=c.Cast_Id and c.Role='Actor' and c.CastMemberName='".$_GET['movieActor']."';";
-				$actorData = $mysqli->query($actorData);
-				
-				while ($singleResult = $actorData->fetch_assoc()){
-					if(!in_array($singleResult, $results)){
-						$results[$counter] =  $singleResult;
-						$counter++;
-					}
-				}						
-			}
-			return $results;
-
+if($genre != "Select Genre" and strlen($genre) > 0){
+	if($started){
+		$totalSearch = $totalSearch . $intersect . $genreData;
+	}else {
+		$totalSearch = $genreData;
+		$started= true;					
 	}
-	
-function selectGenre(){
-
-//$movieTitle = $_GET['movieTitle'];
-			
-		$server_name = 'localhost';
-		$user_name = 'root';
-		$password = "";
-		$db_name = 'MOVIES';
-		$mysqli = new mysqli($server_name, $user_name, $password, $db_name);
-		
-		$genreQuery = "SELECT genre FROM `Genre`;";
-		$genreData = $mysqli->query($genreQuery);
-		
-		
-		return $genreData;
+}
+ 
+if(strlen($director) > 0){
+	if($started){
+		$totalSearch = $totalSearch . $intersect . $directorData;
+	}else {
+		$totalSearch = $directorData;
+		$started= true;				
+	}
 }
 	
-function alertPopup($message){
-		echo '<script>confirm("'.$message.'")</script>';
-		
-		if( strpos($message, "Was Added Successfully") > 0){	
-			return true;
-		}
-		return false;
+if(strlen($actor) > 0){
+	if($started){
+		$totalSearch = $totalSearch . $intersect . $actorData;
+	}else {
+		$totalSearch = $actorData;
+		$started= true;				
+	}
+}
 
-}	
-	
-function movieSuggestion($title, $releaseDate, $genre, $rating, $duration, $description, $videoLink, $imageLink, $directors, $actors, $writers){
+if($rating != "Select Rating" and strlen($rating) > 0){
+	if($started){
+		$totalSearch = $totalSearch . $intersect . $ratingData;
+	}else {
+		$totalSearch = $ratingData;
+		$started= true;				
+	}
+}
 
-		echo "Image link:  ".$imageLink."<br>";
+$totalSearch .= ";";
+//echo $totalSearch."<BR>";
 
-		if(strlen($title) ==0 or strlen($videoLink) == 0){
-		        return "Please enter the Name of the movie and video link";
-		}
+$sqlResults = $mysqli->query($totalSearch);
+$movieResults = array();
+$counter = 0;
 
-		$server_name = 'localhost';
-		$user_name = 'root';
-		$password = "";
-		$db_name = 'MOVIES';
-		$mysqli = new mysqli($server_name, $user_name, $password, $db_name);
+	while ($singleResult = $sqlResults->fetch_assoc()) {
+	    $movieResults[$counter] = $singleResult;
+	    $counter++;
+	}
 
-	//$host = 'localhost';
-    //$user = 'u481218741_root';
-    //$password = "Group12#Group12#";
-    //$db_name = 'u481218741_movies';
-    //$mysqli = new mysqli($host, $user, $password, $db_name);	
-    
-    $title = trim($title);
-    $searchMovie = "SELECT MOVIE.Title FROM MOVIE WHERE MOVIE.Title='".$title."';";
-    $output = $mysqli->query($searchMovie);
-    $currentMovie = mysqli_fetch_array($output);
+return $movieResults;
 
-	if(is_null($currentMovie)){
+
+}
+
+function selectGenre()
+{
+	$mysqli = getDbConnecion();
+	$genreQuery = "SELECT genre FROM `Genre`;";
+	$genreData = $mysqli->query($genreQuery);
+	return $genreData;
+}
+
+function alertPopup($message)
+{
+	echo '<script>confirm("' . $message . '")</script>';
+	if (strpos($message, "Was Added Successfully") > 0) {
+		return true;
+	}
+	return false;
+}
+
+function movieSuggestion($title, $releaseDate, $genre, $rating, $duration, $description, $videoLink, $imageLink, $directors, $actors, $writers)
+{
+	if (strlen($title) == 0 or strlen($videoLink) == 0) {
+		return "Please enter the Name of the movie and video link";
+	}
+
+	$mysqli = getDbConnecion();
+
+	$title = trim($title);
+	$searchMovie = "SELECT MOVIE.Title FROM MOVIE WHERE MOVIE.Title='" . $title . "';";
+	$output = $mysqli->query($searchMovie);
+	$currentMovie = mysqli_fetch_array($output);
+
+	if (is_null($currentMovie)) {
 		//DB insertion
 
-
-	$currentDirectory = getcwd();
-	$currentDirectory = $currentDirectory."/moviePosters/";
-	$typesOfFiles = ['jpeg','jpg','png'];
-
-
-	$fileName = $_FILES['imageLink']['name'];
-    $fileSize = $_FILES['imageLink']['size'];
-    $fileTmpName  = $_FILES['imageLink']['tmp_name'];
-    $fileType = $_FILES['imageLink']['type'];
-    $fileExtension = strtolower(end(explode('.',$fileName)));
-
-	$uploadPath = $currentDirectory.basename($fileName);
-
-	echo "Checkpoint 3";
-	echo "upload path and name ".$uploadPath." <br>FileName: ".$fileTmpName;
-	
-	if (! in_array($fileExtension,$fileExtensionsAllowed)) {
-		return "Image file must be jpeg, jpg, or png format.";
-	} 
-	if ($fileSize > 4000000) {
-		return "Image file size is too large.";
-	}
-	
-	$uploadValue = move_uploaded_file($fileTmpName,$uploadPath);
-	if($uploadValue){
-		echo "Upload successfully uploaded";
-	}
-
-	echo "Checkpoint 4";
-		
-		if($genre == "Select Genre"){
+		if ($genre == "Select Genre") {
 			$genre = 0;
 		}
-		
-		if($rating == "Select Rating"){
+
+		if ($rating == "Select Rating") {
 			$rating = "";
 		}
-		
-		$insertSQL = "INSERT INTO `MOVIE`( `Title`, `ReleaseDate`, `Description`, `Genre_Id`, `link`, `imgLocation`, `Rating`, `Duration`) VALUES ('".$title."','".$releaseDate."','".$description."','".$genre."','".$videoLink."','".$fileTmpName."','".$rating."','".$duration."');";
-		$insertResult = $mysqli->query($insertSQL);				
-		return "".$title." Was Added Successfully.";
-			
-	} else{
-		return "".$currentMovie['Title']." already exists";
-	} 
+
+		$insertSQL = "INSERT INTO `MOVIE`( `Title`, `ReleaseDate`, `Description`, `Genre_Id`, `link`, `imgLocation`, `Rating`, `Duration`) VALUES ('" . $title . "','" . $releaseDate . "','" . $description . "','" . $genre . "','" . $videoLink . "','" . $imageLink . "','" . $rating . "','" . $duration . "');";
+		$insertResult = $mysqli->query($insertSQL);
+		return "" . $title . " Was Added Successfully.";
+	} else {
+		return "" . $currentMovie['Title'] . " already exists";
+	}
 }
-
-
-	
-	?>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

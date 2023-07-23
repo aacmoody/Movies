@@ -24,19 +24,21 @@ include_once  __DIR__ . "/database/dbconnection.php";
   <?php include "frontend/header.php"; ?>
 
 
-                  <form action="search.php" class="search" method="GET" style="text-align: center;">
-                    <input type="text" name="movieTitle" placeholder="Search">
-                    <input type="submit" value="Go" class="sumbitbutton">
-                  </form>
-               
-                <br>
-                <br>
   <div>
 
     <main>
       <div>
 
-<?php
+
+
+        <div class="center">
+
+          <div>
+
+            <div class="container">
+              <div class="content">
+
+                <?php
 
                 $con = getDbConnecion();
                 if (mysqli_connect_errno()) {
@@ -56,26 +58,18 @@ include_once  __DIR__ . "/database/dbconnection.php";
 
                 $topTenResult = mysqli_query($con, $topTenMovieQuery);
                 ?>
-                
-         
-              </div>
-
-        <div class="center">
-            <div class="container">
-                      
-           
-                
-                
-                
-              <div class="content">
-
-          
+                <div>
+                  <form action="search.php" class="search" method="GET" style="text-align: center;">
+                    <input type="text" name="movieTitle" placeholder="Search">
+                    <input type="submit" value="Go" class="sumbitbutton">
+                  </form>
+                </div>
                 <?php
 
                 $movieQuery = "SELECT * FROM MOVIE ORDER BY Rand();";
                 $movieInfo = mysqli_query($con, $movieQuery);
                 echo "<br><br>";
-                echo "<h1>Movie Shelf</h1>";
+                echo "<h1>Top Rated</h1>";
                 echo "<div class='carousel'>";
                 for ($x = 0; $x < 6; $x++) {
                   $currentMovie = mysqli_fetch_array($movieInfo);
@@ -99,12 +93,7 @@ include_once  __DIR__ . "/database/dbconnection.php";
                 echo "</table>";*/
                 ?>
 
-         
-
-            </div>
-          </div>
-
-                          <!-- Sidebar with top ten movies -->
+                <!-- Sidebar with top ten movies -->
                 <div class="sidebar">
                   <h1>Top 10 Rated Movies</h1>
                   <ol>
@@ -125,7 +114,10 @@ include_once  __DIR__ . "/database/dbconnection.php";
                     ?>
                   </ol>
                 </div>
-          
+
+              </div>
+            </div>
+          </div>
         </div>
         <script src="main.js"></script>
       </div>
